@@ -2,7 +2,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 import  nltk
 
-
+#prova
 LANGUAGE_MAP = {
     "ar":"arabic",
     "az":"azerbaijani",

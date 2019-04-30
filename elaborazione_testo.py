@@ -45,8 +45,6 @@ def stopping(words, language):
     except Exception as e:
         print(e)
         return words
-
-
     return filtered_sentence
 
 
@@ -72,6 +70,5 @@ def hashing(words):
     for w in words:
         hash_object = int(hashlib.md5(w.encode()).hexdigest(),16)
         result.append(hash_object)
-
     return result
 

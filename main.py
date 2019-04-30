@@ -21,7 +21,6 @@ for site in sites:
             script.extract()  # rip it out
         # get text
         text = soup.get_text()
-        #print(text)
         text = re.sub('[% s]' % re.escape(string.punctuation), '', text)
 
         # detect della lingua del sito
@@ -33,6 +32,10 @@ for site in sites:
 
         # tokenizzazione
         words = elaborazione_testo.tokenize(text)
+
+        #Se la pagina ha meno di 10 parole non considerarla
+        if len(words) < 10:
+            continue
 
         # trasformo le parole in lettere miniscole
         words = elaborazione_testo.trasforma_in_minuscolo(words)

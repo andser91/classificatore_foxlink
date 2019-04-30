@@ -1,7 +1,7 @@
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
-import  nltk
+import hashlib
 
 LANGUAGE_MAP = {
     "ar":"arabic",
@@ -41,10 +41,12 @@ def tokenize(text):
 def stopping(words, language):
     try:
         stop_words = set(stopwords.words(LANGUAGE_MAP[language]))
+        filtered_sentence = [w for w in words if not w in stop_words]
     except Exception as e:
         print(e)
+        return words
 
-    filtered_sentence = [w for w in words if not w in stop_words]
+
     return filtered_sentence
 
 
@@ -56,8 +58,20 @@ def trasforma_in_minuscolo(words):
 
 
 def stemming(words, language):
-    ps = SnowballStemmer(LANGUAGE_MAP[language])
-    result = []
+    try:
+        ps = SnowballStemmer(LANGUAGE_MAP[language])
+        result = []
+        for w in words:
+            result.append(ps.stem(w))
+        return result
+    except Exception:
+        return words
+
+def hashing(words):
+    result= []
     for w in words:
-        result.append(ps.stem(w))
+        hash_object = int(hashlib.md5(w.encode()).hexdigest(),16)
+        result.append(hash_object)
+
     return result
+

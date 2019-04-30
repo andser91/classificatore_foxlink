@@ -12,8 +12,8 @@ sites, label = file_parser.parse("domini_negativi.txt")
 
 for site in sites:
     try:
-        page = requests.get(sites[50])
-        print(sites[51])
+        page = requests.get(site)
+        print(site)
         html_code = page.content
         soup = BeautifulSoup(html_code, 'html.parser')
         # kill all script and style elements
@@ -21,6 +21,7 @@ for site in sites:
             script.extract()  # rip it out
         # get text
         text = soup.get_text()
+        #print(text)
         text = re.sub('[% s]' % re.escape(string.punctuation), '', text)
 
         # detect della lingua del sito
@@ -43,6 +44,12 @@ for site in sites:
         #stemming
         words = elaborazione_testo.stemming(words, language)
         print(words)
+
+        #hashing
+        words= elaborazione_testo.hashing(words)
+        print(words)
+
+
     except requests.exceptions.RequestException as e:
         print(e)
 

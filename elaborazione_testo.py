@@ -1,5 +1,6 @@
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+from nltk.stem import SnowballStemmer
 import  nltk
 
 LANGUAGE_MAP = {
@@ -40,8 +41,8 @@ def tokenize(text):
 def stopping(words, language):
     try:
         stop_words = set(stopwords.words(LANGUAGE_MAP[language]))
-    except Exception:
-        stop_words = set(stopwords.words("english"))
+    except Exception as e:
+        print(e)
 
     filtered_sentence = [w for w in words if not w in stop_words]
     return filtered_sentence
@@ -51,4 +52,12 @@ def trasforma_in_minuscolo(words):
     result = []
     for w in words:
         result.append(w.lower())
+    return result
+
+
+def stemming(words, language):
+    ps = SnowballStemmer(LANGUAGE_MAP[language])
+    result = []
+    for w in words:
+        result.append(ps.stem(w))
     return result

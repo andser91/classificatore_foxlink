@@ -6,12 +6,14 @@ from langdetect import detect
 import re, string
 import nltk
 
+
 # costruisco il training set
 sites, label = file_parser.parse("domini_negativi.txt")
 
 for site in sites:
     try:
-        page = requests.get(site)
+        page = requests.get(sites[50])
+        print(sites[51])
         html_code = page.content
         soup = BeautifulSoup(html_code, 'html.parser')
         # kill all script and style elements
@@ -30,7 +32,6 @@ for site in sites:
 
         # tokenizzazione
         words = elaborazione_testo.tokenize(text)
-        print(words)
 
         # trasformo le parole in lettere miniscole
         words = elaborazione_testo.trasforma_in_minuscolo(words)
@@ -38,6 +39,10 @@ for site in sites:
         # stopping in base al linguaggio
         words = elaborazione_testo.stopping(words, language)
         #print(words)
+
+        #stemming
+        words = elaborazione_testo.stemming(words, language)
+        print(words)
     except requests.exceptions.RequestException as e:
         print(e)
 

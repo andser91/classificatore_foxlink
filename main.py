@@ -23,13 +23,6 @@ for site in sites:
         text = soup.get_text()
         text = re.sub('[% s]' % re.escape(string.punctuation), '', text)
 
-        # detect della lingua del sito
-        try:
-            language = soup.html["lang"]
-            language = language[:2]
-        except Exception:
-            language = detect(text)
-
         # tokenizzazione
         words = elaborazione_testo.tokenize(text)
 
@@ -39,6 +32,13 @@ for site in sites:
 
         # trasformo le parole in lettere miniscole
         words = elaborazione_testo.trasforma_in_minuscolo(words)
+
+        # detect della lingua del sito
+        try:
+            language = soup.html["lang"]
+            language = language[:2]
+        except Exception:
+            language = detect(text)
 
         # stopping in base al linguaggio
         words = elaborazione_testo.stopping(words, language)

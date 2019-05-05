@@ -21,11 +21,7 @@ def normalize_list_len(dataset):
         elementi_mancanti = max_length - len(list)
         for i in range(elementi_mancanti):
             list.append(0)
-    # return_list = []
-    # for el in dataset:
-    #     return_list.append(el[:min_length])
-    #     print(el[:min_length])
-    #return return_list
+
 
 # def ciao(dataset):
 #     lista = []

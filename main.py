@@ -7,6 +7,7 @@ import re, string
 import pickle
 #import training
 
+
 # costruisco il training set
 sites, label = file_parser.parse("dataset.txt")
 i = 0
@@ -21,19 +22,34 @@ for site in sites:
         page = requests.get(site)
         html_code = page.content
         soup = BeautifulSoup(html_code, 'html.parser')
-        # kill all script and style elements
-        for script in soup(["script", "style"]):
-            script.extract()  # rip it out
-        # get text
-        text = soup.get_text()
-        text = re.sub('[% s]' % re.escape(string.punctuation), '', text)
+        text = soup.text
+        words = []
+        print("----------------- "+ site + " -------------")
+        # link_list = soup.find_all('a', href = True)
+        # for link in link_list:
+        #     if not ("http" in link['href'] or "javascript" in link['href'] or "www." in link['href']):
+        #         if not (link.text == ""):
+        #             words.append(link.text.strip("\n"))
+
+        meta_list = soup.find_all("meta", attrs={"name" : "description"})
+        for meta in meta_list:
+             words.append(meta["content"])
+
+        words.append(soup.title.text)
+
+
+        # elimino punteggiatura
+        words = elaborazione_testo.elimina_punteggiatura(words)
+
+        # # traduco in inglese
+        # words = elaborazione_testo.traduci(words)
 
         # tokenizzazione
-        words = elaborazione_testo.tokenize(text)
+        words = elaborazione_testo.tokenize(words)
 
-        #Se la pagina ha meno di 10 parole non considerarla
-        if len(words) < 10:
-            continue
+        # #Se la pagina ha meno di 10 parole non considerarla
+        # if len(words) < 10:
+        #     continue
 
         # trasformo le parole in lettere miniscole
         words = elaborazione_testo.trasforma_in_minuscolo(words)
@@ -52,9 +68,12 @@ for site in sites:
         #stemming
         words = elaborazione_testo.stemming(words, language)
 
+        print(words)
+
         #hashing
         words= elaborazione_testo.hashing(words)
-        print(len(words), site)
+
+        print(words)
 
         ## differenzio tra training e test set
         if i < 260:
@@ -66,7 +85,6 @@ for site in sites:
         i = i + 1
     except Exception as e:
         print(e)
-
 
 ### Salvo il dataset su file
 print("================== Creating dataset =====================")
@@ -86,5 +104,5 @@ pickle_out.close()
 pickle_out = open("y_test.pickle","wb")
 pickle.dump(y_test, pickle_out)
 pickle_out.close()
-
-#training.train()
+#
+# #training.train()

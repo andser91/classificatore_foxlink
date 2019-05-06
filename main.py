@@ -47,9 +47,9 @@ for site in sites:
         # tokenizzazione
         words = elaborazione_testo.tokenize(words)
 
-        # #Se la pagina ha meno di 10 parole non considerarla
-        # if len(words) < 10:
-        #     continue
+        #Se la pagina ha meno di 10 parole non considerarla
+        if len(words) < 1:
+            continue
 
         # trasformo le parole in lettere miniscole
         words = elaborazione_testo.trasforma_in_minuscolo(words)
@@ -104,5 +104,5 @@ pickle_out.close()
 pickle_out = open("y_test.pickle","wb")
 pickle.dump(y_test, pickle_out)
 pickle_out.close()
-#
+
 # #training.train()

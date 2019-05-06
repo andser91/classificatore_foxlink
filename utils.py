@@ -17,9 +17,8 @@ def normalize_list_len(dataset):
     for list in dataset:
         if (len(list) > max_length):
             max_length = len(list)
-    print(max_length)
     for list in dataset:
-        elementi_mancanti = max_length - len(list)
+        elementi_mancanti = 104 - len(list)
         for i in range(elementi_mancanti):
             list.append(0)
 
@@ -28,7 +27,7 @@ def ciao(dataset):
     lista = []
     for el in dataset:
         el = np.array(el)
-        el = el.reshape(10546,1)
+        el = el.reshape(104,1)
         lista.append(el)
-    return np.array(lista)
+    return lista
 

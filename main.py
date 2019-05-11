@@ -25,11 +25,11 @@ for site in sites:
         text = soup.text
         words = []
         print("----------------- "+ site + " -------------")
-        # link_list = soup.find_all('a', href = True)
-        # for link in link_list:
-        #     if not ("http" in link['href'] or "javascript" in link['href'] or "www." in link['href']):
-        #         if not (link.text == ""):
-        #             words.append(link.text.strip("\n"))
+        link_list = soup.find_all('a', href = True)
+        for link in link_list:
+            if not ("http" in link['href'] or "javascript" in link['href'] or "www." in link['href']):
+                if not (link.text == ""):
+                    words.append(link.text.strip("\n"))
 
         meta_list = soup.find_all("meta", attrs={"name" : "description"})
         for meta in meta_list:

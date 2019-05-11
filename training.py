@@ -29,8 +29,8 @@ def train():
 
 
     ## Normalizzo la lunghezza dell'input
-    utils.normalize_list_len(x_train)
-    utils.normalize_list_len(x_test)
+    x_train = utils.normalize_list_len(x_train)
+    x_test = utils.normalize_list_len(x_test)
 
 
     # Uso codifica onehot: abbiamo 2 classi
@@ -48,26 +48,31 @@ def train():
     ## Creo il modello
     model = tf.keras.models.Sequential()
 
-    model.add(tf.keras.layers.Flatten(input_shape=(104,1)))
+    model.add(tf.keras.layers.Flatten(input_shape=(500,1)))
 
     # hidden layer:
+
+    model.add(tf.keras.layers.Dense(1024, activation=tf.nn.relu))
+
+    model.add(tf.keras.layers.Dense(512, activation=tf.nn.relu))
+
+    model.add(tf.keras.layers.Dense(256, activation=tf.nn.relu))
+
     model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
 
-    # hidden layer:
-    model.add(tf.keras.layers.Dense(128,activation=tf.nn.sigmoid))
-
     model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
+
 
     # output layer:
     model.add(tf.keras.layers.Dense(2, activation=tf.nn.softmax))
 
     # parametri per training modello:
-    model.compile(optimizer='adam',
+    model.compile(optimizer='Adam',
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
 
     # training:
-    model.fit(x_train, y_train, epochs=100, batch_size=8)
+    model.fit(x_train, y_train, epochs=30, batch_size=8)
 
     # valuto modello con il test set e lo salvo
     val_loss, val_acc = model.evaluate(x_test, y_test, batch_size=8)

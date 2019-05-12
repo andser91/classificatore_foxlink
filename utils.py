@@ -1,5 +1,6 @@
 import numpy as np
-
+import requests
+from bs4 import BeautifulSoup
 
 def normalize(dataset):
     x_training = []
@@ -13,7 +14,12 @@ def normalize(dataset):
 
 
 def normalize_list_len(dataset):
-    max_length = 500
+    max_length = 0
+    for i in dataset:
+        if len(i) > max_length:
+            max_length = len(i)
+    print(max_length)
+    max_length = 1000
     result = []
     i = 0
     for list in dataset:
@@ -29,7 +35,18 @@ def ciao(dataset):
     lista = []
     for el in dataset:
         el = np.array(el)
-        el = el.reshape(500,1)
+        el = el.reshape(1000,1)
         lista.append(el)
     return lista
+
+def getWordFromSite(site):
+    try:
+        page = requests.get(site)
+        html_code = page.content
+        soup = BeautifulSoup(html_code, 'html.parser')
+        # text = soup.text
+        print("----------------- " + site + " -------------")
+        return soup.title.text
+    except Exception as e:
+        print(e)
 

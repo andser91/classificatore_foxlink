@@ -22,7 +22,6 @@ def train():
     y_test = np.array(pickle.load(pickle_in))
 
 
-
     ## Normalizzo i dati
     x_train = np.array(utils.normalize(x_train))
     x_test = np.array(utils.normalize(x_test))
@@ -43,39 +42,34 @@ def train():
 
     x_train = np.array(utils.ciao(x_train))
     x_test = np.array(utils.ciao(x_test))
-    print(np.array(x_train[0]).shape)
 
     ## Creo il modello
     model = tf.keras.models.Sequential()
 
-    model.add(tf.keras.layers.Flatten(input_shape=(500,1)))
+    model.add(tf.keras.layers.Flatten(input_shape=(1000,1)))
 
     # hidden layer:
 
-    model.add(tf.keras.layers.Dense(1024, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dense(256, activation=tf.nn.sigmoid))
 
-    model.add(tf.keras.layers.Dense(512, activation=tf.nn.relu))
-
-    model.add(tf.keras.layers.Dense(256, activation=tf.nn.relu))
-
-    model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
-
-    model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dense(128, activation=tf.nn.sigmoid))
 
 
     # output layer:
     model.add(tf.keras.layers.Dense(2, activation=tf.nn.softmax))
 
     # parametri per training modello:
-    model.compile(optimizer='Adam',
+    model.compile(optimizer='sgd',
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
 
+    model.summary()
+
     # training:
-    model.fit(x_train, y_train, epochs=30, batch_size=8)
+    model.fit(x_train, y_train, epochs=10, batch_size=1)
 
     # valuto modello con il test set e lo salvo
-    val_loss, val_acc = model.evaluate(x_test, y_test, batch_size=8)
+    val_loss, val_acc = model.evaluate(x_test, y_test, batch_size=1)
     print("Valutazione modello su test set:")
 
     print("Loss: " + str(val_loss))

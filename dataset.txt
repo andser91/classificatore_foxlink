@@ -136,7 +136,7 @@ https://librodopolibro.blogspot.com/	0
 https://www.oscarmondadori.it/	1
 http://quidam.info/	0
 https://www.ebay.co.uk/	1
-https://www.anobii.com/	1
+https://www.anobii.com/	0
 https://book.douban.com/	1
 https://www.siboom.it/	1
 https://www.managementboek.nl/	1
@@ -272,7 +272,7 @@ https://www.arvelle.de/	1
 http://www.latelanera.com/	0
 https://www.businessinsider.com/	0
 https://ierilibrioggiebook.blogspot.com/	0
-https://www.mlolplus.it/	1
+https://www.mlolplus.it/	0
 http://www.illibrogenova.it/	1
 https://www.pikengo.it/	0
 https://www.prezzi-online.com/	0
@@ -282,7 +282,7 @@ https://secretlibrary.pl/	1
 https://www.bookweb.it/	1
 http://www.librinlinea.it/	0
 https://www.libreriadelsanto.it/	1
-https://www.clasf.it/	1
+https://www.clasf.it/	0
 https://www.unilibro.it/	1
 http://www.giunti.it/	0
 https://hk.answers.yahoo.com/	0
@@ -303,9 +303,9 @@ https://www.mydeal.com.au/	1
 https://www.kriso.lv/	1
 http://iicmelbourne.esteri.it/	0
 https://www.lafeltrinelli.it/	1
-https://www.cazatesoros.es/	1
+https://www.cazatesoros.es/	0
 https://steveframe.net/	0
-https://www.tauschticket.de/	1
+https://www.tauschticket.de/	0
 https://www.exlibris.ch/	1
 https://www.medimops.de/	1
 http://sognandoleggendo.net/	0
@@ -317,7 +317,7 @@ https://www.yuason.com/	0
 https://www.abebooks.it/	1
 https://www.kogan.com/	1
 https://www.matacenalibri/.	1
-https://www.comprovendolibri.it/	1
+https://www.comprovendolibri.it/	0
 https://www.ilgiardinodeilibri.it/	1
 https://archiwum.allegro.pl/	1
 https://www.boekenbestellen.nl/	1

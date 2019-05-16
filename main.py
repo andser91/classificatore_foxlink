@@ -73,11 +73,8 @@ for site in sites:
                 for key in dizionarioFooter:
                     if dizionarioFooter[key].get("en") in footertesto:
                         print(dizionarioFooter[key].get("en"))
-                    if dizionarioFooter[key].get(language) in footertesto:
+                    elif dizionarioFooter[key].get(language) in footertesto:
                         print(dizionarioFooter[key].get(language))
-
-
-
 
 
 

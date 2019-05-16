@@ -26,7 +26,10 @@ print("==================== Download Pages =====================")
 for site in sites:
     try:
         i = i+1
-        page = requests.get(site)
+        headers = {
+            'User-agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36'}
+
+        page = requests.get("https://www.instant-gaming.com", headers=headers)
         html_code = page.content
         soup = BeautifulSoup(html_code, 'html.parser')
         words = []
@@ -45,12 +48,24 @@ for site in sites:
         except Exception:
             language = detect(text)
 
-        cart = soup.select('*[id*=cart], *[id*=Cart],*[id*=basket], *[id*=Basket], *[id*=' +data[language] +'], *[id*=' +data[language].title() +']')
+        cart = soup.select('*[id*=cart], *[id*=Cart],*[id*=basket], *[id*=Basket], *[id*='
+                           +data[language] +'], *[id*=' +data[language].title() +']')
         if cart == []:
-            cart = soup.select('*[class*=cart], *[class*=basket], *[class*=Basket], *[class*=' +data[language] +'], *[class*=' +data[language].title() +']')
+            cart = soup.select('*[class*=cart], *[class*=Cart], *[class*=basket], *[class*=Basket], *[class*=' +data[language]
+                               +'], *[class*=' +data[language].title() +']')
 
         if cart == []:
-            ...
+            footer = soup.select('*[id*=footer], *[id*=Footer]')
+            if footer == []:
+                footer = soup.select('*[class*=Footer], *[class*=footer]')
+
+        for el in footer:
+            print (el.text)
+
+
+       #if footer == []:
+
+
 
         # if (cart != [] and label[sites.index(site)] == "1") or cart == [] and label[sites.index(site)] == "0" :
         #     j = j + 1

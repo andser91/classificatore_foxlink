@@ -9,11 +9,15 @@ LANGUAGES = ['sq','ar','az','be','bs','bg','zh-cn','zh-tw','hr', 'cs','da','nl',
 dictionary = defaultdict()
 
 translator = Translator()
-text="cart"
+text="delivery"
 for lan in LANGUAGES:
     translation = translator.translate(text, dest=lan)
     dictionary[lan] = translation.text
 
 
-with open('lang_file.json', 'w') as outfile:
+# with open('lang_file.json', 'w') as outfile:
+#    json.dump(dictionary, outfile)
+
+
+with open('lang_fileFooter.json', 'w') as outfile:
    json.dump(dictionary, outfile)

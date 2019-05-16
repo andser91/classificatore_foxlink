@@ -6,6 +6,8 @@ import json
 import goslate
 from langdetect import detect
 import pickle
+from dizionarioFooter import dizionarioFooter
+
 #import training
 import utils
 
@@ -29,7 +31,7 @@ for site in sites:
         headers = {
             'User-agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36'}
 
-        page = requests.get("https://www.instant-gaming.com", headers=headers)
+        page = requests.get(site, headers=headers)
         html_code = page.content
         soup = BeautifulSoup(html_code, 'html.parser')
         words = []
@@ -55,15 +57,27 @@ for site in sites:
                                +'], *[class*=' +data[language].title() +']')
 
         if cart == []:
+            footer=[]
             footer = soup.select('*[id*=footer], *[id*=Footer]')
             if footer == []:
                 footer = soup.select('*[class*=Footer], *[class*=footer]')
 
-        for el in footer:
-            print (el.text)
+                footertext=""
+                for el in footer:
+                    footertext+=el.text
+
+                footertesto = ""
+                footertesto = footertext.replace("\n", " ").lower()
+
+                print(footertesto)
+                for key in dizionarioFooter:
+                    if dizionarioFooter[key].get("en") in footertesto:
+                        print(dizionarioFooter[key].get("en"))
+                    if dizionarioFooter[key].get(language) in footertesto:
+                        print(dizionarioFooter[key].get(language))
 
 
-       #if footer == []:
+
 
 
 

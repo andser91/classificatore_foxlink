@@ -7,10 +7,8 @@ import goslate
 from langdetect import detect
 import pickle
 from dizionarioFooter import dizionarioFooter
-
 #import training
 import utils
-
 # costruisco il training set
 sites, label = file_parser.parse("dataset.txt")
 gs = goslate.Goslate()
@@ -28,22 +26,14 @@ print("==================== Download Pages =====================")
 for site in sites:
     try:
         i = i+1
-        headers = {
-            'User-agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36'}
-
-        page = requests.get(site, headers=headers)
+        page = requests.get("https://forum.duolingo.com/")
         html_code = page.content
         soup = BeautifulSoup(html_code, 'html.parser')
-        words = []
         print("----------------- "+ site + " -------------")
-        #words.append(soup.title.text)
-
         # kill all script and style elements
         for script in soup(["script", "style"]):
             script.extract()  # rip it out
-
         text = soup.text
-
         try:
             language = soup.html["lang"]
             language = language[:2]
@@ -56,90 +46,49 @@ for site in sites:
             cart = soup.select('*[class*=cart], *[class*=Cart], *[class*=basket], *[class*=Basket], *[class*=' +data[language]
                                +'], *[class*=' +data[language].title() +']')
 
+        if (cart != [] and label[sites.index(site)] == "1"):
+            j = j + 1
+            print("Ho trovato il carrello e la label è 1")
+            print(j)
+        trovato = False
         if cart == []:
-            footer=[]
             footer = soup.select('*[id*=footer], *[id*=Footer]')
             if footer == []:
                 footer = soup.select('*[class*=Footer], *[class*=footer]')
-
-                footertext=""
+                if footer == []:
+                    footer = soup.find("footer")
+            if footer == None:
+                trovato = False
+            else:
+                footertext = []
                 for el in footer:
-                    footertext+=el.text
-
-                footertesto = ""
-                footertesto = footertext.replace("\n", " ").lower()
-
-                print(footertesto)
+                    footertext.append(el.text)
+                # elimino punteggiatura
+                footertext = elaborazione_testo.elimina_punteggiatura(footertext)
+                # tokenizzazione
+                footertext = elaborazione_testo.tokenize(footertext)
+                # trasformo le parole in lettere miniscole
+                footertext = elaborazione_testo.trasforma_in_minuscolo(footertext)
                 for key in dizionarioFooter:
-                    if dizionarioFooter[key].get("en") in footertesto:
-                        print(dizionarioFooter[key].get("en"))
-                    elif dizionarioFooter[key].get(language) in footertesto:
-                        print(dizionarioFooter[key].get(language))
+                    for el in footertext:
+                        if dizionarioFooter[key].get("en") in el:
+                            print(dizionarioFooter[key].get("en"))
+                            trovato = True
+                        elif dizionarioFooter[key].get(language) in el:
+                            trovato = True
+                            print(dizionarioFooter[key].get(language))
+
+            if (trovato == True and label[sites.index(site)] == "1"):
+                j = j + 1
+                print("ho trovato una parola chiave nel footer e la label è 1")
+                print(j)
+
+            if (trovato == False and label[sites.index(site)] == "0"):
+                j = j + 1
+                print("non ho trovato nè carrello nè una parola chiave nel footer e la label è 0")
+                print(j)
 
 
-
-        # if (cart != [] and label[sites.index(site)] == "1") or cart == [] and label[sites.index(site)] == "0" :
-        #     j = j + 1
-
-        # if cart == []:
-        #     cart = soup.select('*[class*='+ gs.translate('cart', language)+']')
-        #     print(cart)
-
-        # meta_list = soup.find_all("meta", attrs={"name" : "description"})
-        #
-        # for meta in meta_list:
-        #      words.append(meta["content"])
-        #
-        # # link_list = soup.find_all('a', href=True)
-        # # for link in link_list:
-        # #     if not ("http" in link['href'] or "javascript" in link['href'] or "www." in link['href'] or link['href'] == "#"):
-        # #         words.append(utils.getWordFromSite(site + link['href']))
-        # #         print(words)
-        #
-        #
-        # link_list = soup.find_all('a', href=True)
-        # for link in link_list:
-        #     if not ("http" in link['href'] or "javascript" in link['href'] or "www." in link['href']):
-        #         if not (link.text == ""):
-        #             words.append(link.text.strip("\n"))
-        #
-        # # elimino punteggiatura
-        # words = elaborazione_testo.elimina_punteggiatura(words)
-        #
-        # # # traduco in inglese
-        # # words = elaborazione_testo.traduci(words)
-        #
-        # # tokenizzazione
-        # words = elaborazione_testo.tokenize(words)
-        #
-        # #Se la pagina ha meno di 10 parole non considerarla
-        # if len(words) < 1:
-        #     continue
-        #
-        # # trasformo le parole in lettere miniscole
-        # words = elaborazione_testo.trasforma_in_minuscolo(words)
-        #
-        # # detect della lingua del sito
-
-
-        # # stopping in base al linguaggio
-        # words = elaborazione_testo.stopping(words, language)
-        # #print(words)
-        #
-        # #stemming
-        # words = elaborazione_testo.stemming(words, language)
-        #
-        # print(words)
-        #
-        # #hashing
-        # words= elaborazione_testo.hashing(words)
-        #
-        # print(words)
-        #
-        # ## differenzio tra training e test set
-        # x_training.append(words)
-        # y_training.append(label[i])
-        # i = i + 1
     except Exception as e:
         print(e)
 print(j)

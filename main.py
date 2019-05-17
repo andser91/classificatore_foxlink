@@ -26,7 +26,7 @@ print("==================== Download Pages =====================")
 for site in sites:
     try:
         i = i+1
-        page = requests.get("https://forum.duolingo.com/")
+        page = requests.get(site)
         html_code = page.content
         soup = BeautifulSoup(html_code, 'html.parser')
         print("----------------- "+ site + " -------------")
@@ -39,17 +39,20 @@ for site in sites:
             language = language[:2]
         except Exception:
             language = detect(text)
+        try:
+            cart = soup.select('*[id*='+data[language] +'], *[id*=' +data[language].title() +']*[class*=' +data[language]
+                                   +'], *[class*=' +data[language].title() +']')
+        except:
+            cart = soup.select('*[id*=cart], *[id*=Cart],*[id*=basket], *[id*=Basket], *[class*=cart], *[class*=Cart], *[class*=basket], *[class*=Basket]')
 
-        cart = soup.select('*[id*=cart], *[id*=Cart],*[id*=basket], *[id*=Basket], *[id*='
-                           +data[language] +'], *[id*=' +data[language].title() +']')
         if cart == []:
-            cart = soup.select('*[class*=cart], *[class*=Cart], *[class*=basket], *[class*=Basket], *[class*=' +data[language]
-                               +'], *[class*=' +data[language].title() +']')
+            cart = soup.select('*[id*=cart], *[id*=Cart],*[id*=basket], *[id*=Basket], *[class*=cart], *[class*=Cart], *[class*=basket], *[class*=Basket]')
 
-        if (cart != [] and label[sites.index(site)] == "1"):
+        if cart != [] and label[sites.index(site)] == "1":
             j = j + 1
             print("Ho trovato il carrello e la label è 1")
             print(j)
+
         trovato = False
         if cart == []:
             footer = soup.select('*[id*=footer], *[id*=Footer]')
@@ -72,23 +75,22 @@ for site in sites:
                 for key in dizionarioFooter:
                     for el in footertext:
                         if dizionarioFooter[key].get("en") in el:
-                            print(dizionarioFooter[key].get("en"))
-                            trovato = True
-                        elif dizionarioFooter[key].get(language) in el:
                             trovato = True
                             print(dizionarioFooter[key].get(language))
+                        elif dizionarioFooter[key].get(language) in el:
+                            print(dizionarioFooter[key].get("en"))
+                            trovato = True
 
-            if (trovato == True and label[sites.index(site)] == "1"):
+
+            if trovato == True and label[sites.index(site)] == "1":
                 j = j + 1
                 print("ho trovato una parola chiave nel footer e la label è 1")
                 print(j)
 
-            if (trovato == False and label[sites.index(site)] == "0"):
+            if trovato == False and label[sites.index(site)] == "0":
                 j = j + 1
                 print("non ho trovato nè carrello nè una parola chiave nel footer e la label è 0")
                 print(j)
-
-
     except Exception as e:
         print(e)
 print(j)

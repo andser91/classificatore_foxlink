@@ -74,7 +74,7 @@ https://abcnews.go.com/	0
 https://en.wikipedia.org/	0
 https://www.vitalsource.com/	1
 https://foyles.co.uk/	1
-https://www.scoop.it/	1
+https://www.scoop.it/	0
 https://digbysblog.blogspot.com/	0
 https://www.northshire.com/	1
 http://ilmorgante.altervista.org/	0
@@ -88,17 +88,14 @@ https://vdocuments.site/	0
 https://vdocuments.site/	0
 https://libriahora.firebaseapp.com/	0
 https://acciobooks.com/	0
-http://www.ageasoft.com/	0
 https://www.slideshare.net/	0
 https://www.thestranger.com/	1
 https://unglue.it/	0
 https://www.washingtonpost.com/	0
-https://www.libreriacoletti.it/	1
 http://roberdslawfirm.com/	0
 https://www.woorank.com/	1
 http://www.techmeme.com/	0
 https://www.letmeread.net/	0
-https://www.webdroid.co/	0
 https://www.tantilibriperte.it/	1
 https://www.loot.co.za/	1
 http://slidegur.com/	0
@@ -123,10 +120,8 @@ https://us.diebuchsuche.com/	0
 https://thebiglead.com/	0
 https://phys.org/	0
 http://www.bl.uk/	0
-https://libri.cc/	0
 https://variety.com/	0
 https://accessify.com/	0
-www.aroundmyhouseconsignment.com	0
 http://downwithtyranny.blogspot.com/	0
 http://www.providefreebookedition.com/	0
 http://www.bestbooknew.com/	0
@@ -147,7 +142,6 @@ https://www.librieprofessioni.it/	1
 https://sites.google.com/	0
 https://sobooks.cc/	0
 https://opentrolley.com.sg/	1
-https://www.clesp.eu/	0
 https://www.edizionieo.it/	1
 http://www.booktopia.com.au/	1
 https://www.wuz.it/	1
@@ -314,7 +308,6 @@ https://www.ebookmall.com/	1
 https://www.yuason.com/	0
 https://www.abebooks.it/	1
 https://www.kogan.com/	1
-https://www.matacenalibri/.	1
 https://www.comprovendolibri.it/	0
 https://www.ilgiardinodeilibri.it/	1
 https://archiwum.allegro.pl/	1
@@ -336,7 +329,6 @@ https://www.abebooks.de/	1
 http://www.cristianolibri.it/	1
 https://www.alibri.es/	1
 https://clikca.wordpress.com/	0
-https://www.messaggierielibri.it/	0
 https://czytam.pl/	1
 https://www.books-express.ro/	1
 https://www.myshopping.com.au/	0
